@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpawnMethod
@@ -18,9 +18,7 @@ public class SpawnerBehavior : MonoBehaviour
 
     public GameObject obstacle;
     public SpawnMethod spawnMethod = SpawnMethod.Random;
-
-    float distanceFromLastSpawn = 0;
-    float lastPosition = 0f;
+    
     public float spawnFrequency = 50;
     public float offsetFromPlayer = 50;
 
@@ -28,7 +26,6 @@ public class SpawnerBehavior : MonoBehaviour
 
     private void Start()
     {
-        lastPosition = transform.position.z;
 
         switch (spawnMethod) {
             case SpawnMethod.Random:
@@ -50,6 +47,9 @@ public class SpawnerBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(player == null)
+            return;
+
         var newZVal = player.transform.position.z + offsetFromPlayer;
         transform.position = new Vector3(transform.position.x, transform.position.y, newZVal);
 

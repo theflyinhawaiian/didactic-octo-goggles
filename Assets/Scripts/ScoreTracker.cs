@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreTracker : MonoBehaviour
@@ -11,7 +11,7 @@ public class ScoreTracker : MonoBehaviour
     {
         var gameEnded = FindObjectOfType<GameManager>().GameEnded;
 
-        if (player.position.z >= 0 && !gameEnded) {
+        if (player != null && player.position.z >= 0 && !gameEnded) {
             scoreText.text = player.position.z.ToString("0");
         }
     }
