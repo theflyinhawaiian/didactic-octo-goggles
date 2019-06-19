@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpawnMethod
@@ -58,7 +58,7 @@ public class SpawnerBehavior : MonoBehaviour
 
     void SpawnObstacles(float currZ)
     {
-        if (currZ > objectPositions[0].z) {
+        if (objectPositions.Count > 0 && currZ > objectPositions[0].z) {
             Instantiate(obstacle, objectPositions[0], Quaternion.identity);
             objectPositions.RemoveAt(0);
             SpawnObstacles(currZ);

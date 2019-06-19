@@ -4,12 +4,20 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public Rigidbody rb;
-    public float velocity = 2000;
+    public float difficultyFactor = 1;
+    public float maxVelocity = 2000;
     public float lateralVelocity = 500;
 
     bool movedRight;
     bool movedLeft;
     bool shouldExplode;
+
+    float calculatedVelocity;
+
+    private void Start()
+    {
+        calculatedVelocity = difficultyFactor * maxVelocity;
+    }
 
     void Update()
     {
@@ -29,7 +37,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce(0, 0, velocity * Time.deltaTime);
+        if(rb.velocity.magnitude < maxVelocity) {
+            rb.AddForce(0, 0, calculatedVelocity * Time.deltaTime);
+        }
 
         if (movedRight) {
             rb.AddForce(lateralVelocity * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
