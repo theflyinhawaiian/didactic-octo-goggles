@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool movedRight;
     bool movedLeft;
+    bool shouldExplode;
 
     void Update()
     {
@@ -18,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("a")) {
             movedLeft = true;
+        }
+
+        if (Input.GetKey("space")) {
+            shouldExplode = true;
         }
     }
 
@@ -34,6 +39,13 @@ public class PlayerMovement : MonoBehaviour
         if (movedLeft) {
             rb.AddForce(-1 * lateralVelocity * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
             movedLeft = false;
+        }
+
+        if (shouldExplode) {
+            var currPos = rb.transform.position;
+            rb.AddExplosionForce(10.0f, currPos, 10.0f);
+            Debug.Log("Exploding!");
+            shouldExplode = false;
         }
 
         if (rb.transform.position.y < 0) {
